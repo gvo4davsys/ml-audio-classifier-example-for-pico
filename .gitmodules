@@ -8,3 +8,6 @@
 	path = inference-app/lib/CMSIS_5
 	url = https://github.com/ARM-software/CMSIS_5.git
 	shallow = true
+[submodule "inference-app/lib/pico-serialmic"]
+	path = inference-app/lib/pico-serialmic
+	url = https://github.com/biemster/pico-serialmic.git
