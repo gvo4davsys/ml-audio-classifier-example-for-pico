@@ -40,15 +40,17 @@ target_link_libraries(pico_inference_app
     hardware_pwm
     pico-tflmicro
     pico_pdm_microphone
+    pico_serialmic
     CMSISDSPTransform CMSISDSPSupport CMSISDSPCommon CMSISDSPComplexMath CMSISDSPFastMath CMSISDSPBasicMath
 )
 
 # enable usb output, disable uart output
 pico_enable_stdio_usb(pico_inference_app 1)
-pico_enable_stdio_uart(pico_inference_app 0)
+pico_enable_stdio_uart(pico_inference_app 1)
 
 # create map/bin/hex/uf2 file in addition to ELF.
 pico_add_extra_outputs(pico_inference_app)
 
 add_subdirectory("lib/microphone-library-for-pico" EXCLUDE_FROM_ALL)
 add_subdirectory("lib/pico-tflmicro" EXCLUDE_FROM_ALL)
+add_subdirectory("lib/pico-serialmic" EXCLUDE_FROM_ALL)

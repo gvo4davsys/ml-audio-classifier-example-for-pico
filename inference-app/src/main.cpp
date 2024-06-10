@@ -19,7 +19,13 @@ extern "C" {
 #include "dsp_pipeline.h"
 #include "ml_model.h"
 
+#include "machine_i2s.c"
+
 // constants
+#define SCK               3
+#define WS                4
+#define SD                5
+#define BPS               32
 #define SAMPLE_RATE       16000
 #define FFT_SIZE          256
 #define SPECTRUM_SHIFT    4
@@ -94,25 +100,29 @@ int main( void )
     spectrogram_zero_point = ml_model.input_zero_point();
 
     // initialize the PDM microphone
-    if (pdm_microphone_init(&pdm_config) < 0) {
-        printf("PDM microphone initialization failed!\n");
-        while (1) { tight_loop_contents(); }
-    }
+    // if (pdm_microphone_init(&pdm_config) < 0) {
+    //     printf("PDM microphone initialization failed!\n");
+    //     while (1) { tight_loop_contents(); }
+    // }
+
+    // initialize the i2s microphone
+    machine_i2s_obj_t* i2s0 = machine_i2s_make_new(0, SCK, WS, SD, RX, BPS, MONO, SIZEOF_DMA_BUFFER_IN_BYTES, SAMPLE_RATE);
 
     // set callback that is called when all the samples in the library
     // internal sample buffer are ready for reading
-    pdm_microphone_set_samples_ready_handler(on_pdm_samples_ready);
+    // pdm_microphone_set_samples_ready_handler(on_pdm_samples_ready);
 
     // start capturing data from the PDM microphone
-    if (pdm_microphone_start() < 0) {
-        printf("PDM microphone start failed!\n");
-        while (1) { tight_loop_contents(); }
-    }
+    // if (pdm_microphone_start() < 0) {
+    //     printf("PDM microphone start failed!\n");
+    //     while (1) { tight_loop_contents(); }
+    // }
 
     while (1) {
         // wait for new samples
-        while (new_samples_captured == 0) {
-            tight_loop_contents();
+        while (new_samples_captured == 0) 
+        {
+            new_samples_captured = machine_i2s_stream_read(i2s0, (void*)&capture_buffer_q15[0], INPUT_BUFFER_SIZE);
         }
         new_samples_captured = 0;
 
