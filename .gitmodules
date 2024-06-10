@@ -10,4 +10,4 @@
 	shallow = true
 [submodule "inference-app/lib/pico-serialmic"]
 	path = inference-app/lib/pico-serialmic
-	url = https://github.com/biemster/pico-serialmic.git
+	url = https://github.com/gvo4davsys/pico-serialmic.git

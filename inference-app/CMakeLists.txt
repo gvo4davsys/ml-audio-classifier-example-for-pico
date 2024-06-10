@@ -46,7 +46,7 @@ target_link_libraries(pico_inference_app
 
 # enable usb output, disable uart output
 pico_enable_stdio_usb(pico_inference_app 1)
-pico_enable_stdio_uart(pico_inference_app 1)
+pico_enable_stdio_uart(pico_inference_app 0)
 
 # create map/bin/hex/uf2 file in addition to ELF.
 pico_add_extra_outputs(pico_inference_app)
