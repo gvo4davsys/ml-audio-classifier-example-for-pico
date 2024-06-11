@@ -147,7 +147,7 @@ int main( void )
         if (prediction >= 0.5) {
           printf("\t🔥 🔔\tdetected!\t(prediction = %f)\n\n", prediction);
         } else {
-          printf("\t🔕\tNOT detected\t(prediction = %f)\n\n", prediction);
+          printf("\t🔕\tNOT detected\t(prediction = %f)\t(mic = %.8x)\n\n", prediction, capture_buffer_q15[0]);
         }
 
         pwm_set_chan_level(pwm_slice_num, pwm_chan_num, prediction * 255);
