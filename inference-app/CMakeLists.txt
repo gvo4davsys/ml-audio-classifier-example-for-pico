@@ -40,7 +40,7 @@ target_link_libraries(pico_inference_app
     hardware_pwm
     pico-tflmicro
     pico_pdm_microphone
-    pico_serialmic
+    pico_i2s_serialmic
     CMSISDSPTransform CMSISDSPSupport CMSISDSPCommon CMSISDSPComplexMath CMSISDSPFastMath CMSISDSPBasicMath
 )
 
